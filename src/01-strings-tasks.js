@@ -179,8 +179,8 @@ function convertToUpperCase(str) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -206,8 +206,23 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let str = '';
+  /* eslint-disable no-plusplus */
+  for (let h = 0; h < height; h++) {
+    for (let w = 0; w < width; w++) {
+      if (h === 0 && w === 0) str += '┌';
+      if (h === 0 && w === width - 1) str += '┐';
+      if (h === height - 1 && w === 0) str += '└';
+      if (h === height - 1 && w === width - 1) str += '┘';
+      if (h === 0 && w > 0 && w < width - 1) str += '─';
+      if (h === height - 1 && w > 0 && w < width - 1) str += '─';
+      if ((h > 0 && h < height - 1) && (w === 0 || w === width - 1)) str += '│';
+      if (w === width - 1) str += '\n';
+      if (h !== 0 && h !== height - 1 && w !== 0 && w !== width - 1) str += ' ';
+    }
+  }
+  return str;
 }
 
 
@@ -244,8 +259,12 @@ function encodeToRot13(str) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if (value && !Array.isArray(value)) {
+    if (typeof value === 'string') return true;
+    if (typeof value.toString() === 'string') return true;
+  }
+  return false;
 }
 
 
